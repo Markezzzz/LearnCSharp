@@ -1,0 +1,103 @@
+﻿@page "{moduleId:int}/{courseId:int}"
+@model CreateChapterModel
+@{
+    Layout = "_LayoutChapter";
+    ViewData["Title"] = "Добавление новой главы";
+}
+<div class="text-center">
+    <h2 class="display-4">@ViewData["Title"]</h2>
+</div>
+<!-- TODO: Убрать эти глупые повторения в стилях и прочем, то же самое почти во всех файлах -->
+<div asp-validation-summary="All"></div>
+<form method="post">
+    <div style="display: flex; flex-direction: column;">
+        <div class="border rounded" style="flex: 1; margin-bottom: 5vh; box-shadow: rgb(14 30 37 / 12%) 0px 2px 4px 0px, rgb(14 30 37 / 12%) 0px 1px 10px 0px;">
+            <div>
+                <p style="margin-bottom: 0.1rem; margin-left: 0.4%;">
+                    Название главы
+                </p>
+                <div style="border-bottom: 1px solid #dee2e6; border-top: 1px solid #dee2e6;">
+                    <input placeholder="Самая лучшая глава" style="width: 99.4%; border: none; outline-color: #0399e8; margin-left: 0.4%; padding: 0;" maxlength="48" asp-for="Chapter.Name"/>
+                </div>
+            </div>
+            <div>
+                <p style="margin-bottom: 0.1rem; margin-left: 0.4%;">
+                    Порядковый номер
+                    <small class="text-muted">Порядковый номер начинается с нуля</small>
+                </p>
+                <div style="border-bottom: 1px solid #dee2e6; border-top: 1px solid #dee2e6;">
+                    <input placeholder="0" style="width: 99.4%; border: none; outline-color: #0399e8; margin-left: 0.4%; padding: 0;" asp-for="Chapter.index"/>
+                </div>
+            </div>
+            <div>
+                <p style="margin-bottom: 0.1rem; margin-left: 0.4%;">
+                    Название сборки
+                    <small class="text-muted">Название сборки это: <i>Namespace.Class</i></small>
+                </p>
+                <div style="border-bottom: 1px solid #dee2e6; border-top: 1px solid #dee2e6;">
+                    <input placeholder="MyNamespace.MyClass" style="width: 99.4%; border: none; outline-color: #0399e8; margin-left: 0.4%; padding: 0;" asp-for="Chapter.AssemblyName"/>
+                </div>
+            </div>
+        </div>
+        <div style="flex: 1;display: flex;">
+            <div style="flex: 1; margin-right: 10px; height: 100%; width: 50%;">
+                <p style="margin-bottom: 0.2rem">
+                    Текст лекции
+                    <small class="text-muted">
+                        Можно использовать
+                        <a href="https://www.markdownguide.org/basic-syntax/" target="_blank" rel="noopener noreferrer">
+                            <i>Markdown</i>
+                        </a>,
+                        для создания диаграмм используется
+                        <a href="https://mermaid-js.github.io/mermaid/#/" target="_blank" rel="noopener noreferrer">
+                            <i>Mermaid</i>
+                        </a>,
+                        для создания формул используется
+                        <a href="https://katex.org/docs/supported.html" target="_blank" rel="noopener noreferrer">
+                            <i>KaTeX</i>
+                        </a>
+                    </small>
+                </p>
+                <textarea placeholder="Hello World!" class="border rounded chapter-content" asp-for="Chapter.RawContent" rows="50" style="resize: none; width: 100%; height: 70vh;overflow-y: scroll; border: none; outline: none; box-shadow: rgb(14 30 37 / 12%) 0px 2px 4px 0px, rgb(14 30 37 / 12%) 0px 1px 10px 0px;"></textarea>
+            </div>
+            <div style="flex: 1; margin-left: 10px; height: 100%; width: 50%;">
+                <p style="margin-bottom: 0.2rem">
+                    Код тестов
+                    <small class="text-muted">Код должен содержать метод <i>RunAllTests</i></small>
+                </p>
+                <div class="border rounded" style="box-shadow: rgb(14 30 37 / 12%) 0px 2px 4px 0px, rgb(14 30 37 / 12%) 0px 1px 10px 0px;">
+                    <textarea asp-for="Chapter.TestsCode" id="testCode" rows="50" style="resize: none; width: 100%; height: 70vh;overflow-y: scroll;"></textarea>
+                </div>
+            </div>
+        </div>
+        <div style="flex: 1;display: flex;">
+            <div style="flex: 1; margin-right: 10px; height: 100%; width: 50%;">
+                <p style="margin-bottom: 0.2rem">
+                    Решение преподавателя
+                    <small class="text-muted">Ваше решение, которое проходит все тесты и является образцом для ученика</small>
+                </p>
+                <div class="border rounded" style="box-shadow: rgb(14 30 37 / 12%) 0px 2px 4px 0px, rgb(14 30 37 / 12%) 0px 1px 10px 0px;">
+                    <textarea asp-for="Chapter.TeacherCode" id="teacherCode" rows="50" style="resize: none; width: 100%; height: 70vh;overflow-y: scroll;"></textarea>
+                </div>
+            </div>
+            <div style="flex: 1; margin-left: 10px; height: 100%; width: 50%;">
+                <p style="margin-bottom: 0.2rem">
+                    Код секретных тестов
+                    <small class="text-muted">Соберите вызов каждого теста в единый метод и не забудьте вызвать его в коде основных тестов</small>
+                </p>
+                <div class="border rounded" style="box-shadow: rgb(14 30 37 / 12%) 0px 2px 4px 0px, rgb(14 30 37 / 12%) 0px 1px 10px 0px;">
+                    <textarea asp-for="Chapter.SecretTestsCode" id="secretTestCode" rows="50" style="resize: none; width: 100%; height: 70vh;overflow-y: scroll;"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <input type="submit" class="btn btn-success" value="Сохранить"/>
+    </div>
+</form>
+
+<script type="text/javascript"> 
+    var testEditor = CodeMirror.fromTextArea(document.getElementById("testCode"), {mode: "text/x-csharp", lineWrapping: true, lineNumbers: true, indentUnit: 4, viewportMargin: Infinity});
+    var secretTestEditor = CodeMirror.fromTextArea(document.getElementById("secretTestCode"), {mode: "text/x-csharp", lineWrapping: true, lineNumbers: true, indentUnit: 4, viewportMargin: Infinity});
+    var teacherEditor = CodeMirror.fromTextArea(document.getElementById("teacherCode"), {mode: "text/x-csharp", lineWrapping: true, lineNumbers: true, indentUnit: 4, viewportMargin: Infinity});
+</script>

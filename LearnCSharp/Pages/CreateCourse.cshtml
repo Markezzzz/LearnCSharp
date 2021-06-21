@@ -1,0 +1,32 @@
+﻿@page
+@model CreateCourseModel
+@{
+    ViewData["Title"] = "Добавление нового курса";
+}
+<div class="text-center">
+    <h2 class="display-4">@ViewData["Title"]</h2>
+</div>
+<div asp-validation-summary="All"></div>
+<form method="POST">
+    <div class="border rounded" style="box-shadow: rgb(14 30 37 / 12%) 0px 2px 4px 0px, rgb(14 30 37 / 12%) 0px 1px 10px 0px;">
+        <div>
+            <p style="margin-bottom: 0.1rem; margin-left: 0.4%;">Название</p>
+            <div style="border-bottom: 1px solid #dee2e6; border-top: 1px solid #dee2e6;">
+                <input placeholder="Мой курс" style="width: 99.4%; border: none; outline-color: #0399e8; margin-left: 0.4%; padding: 0;" maxlength="40" asp-for="Course.Name"/>
+            </div>
+        </div>
+        <div>
+            <p style="margin-bottom: 0.1rem; margin-left: 0.4%;">Описание</p>
+            <div style="border-bottom: 1px solid #dee2e6; border-top: 1px solid #dee2e6;">
+                <textarea placeholder="Самый лучший курс" style="width: 99.4%; border: none; outline-color: #0399e8; margin-left: 0.4%; padding: 0; resize: none" rows="3" maxlength="80" asp-for="Course.Description"></textarea>
+            </div>
+        </div>
+        <div>
+            <p style="margin-bottom: 0.1rem; margin-left: 0.4%;">Автор</p>
+            <div style="border-bottom: 1px solid #dee2e6; border-top: 1px solid #dee2e6;">
+                <input placeholder="Василий Пупкин" style="width: 99.4%; border: none; outline-color: #0399e8; margin-left: 0.4%; padding: 0;" maxlength="32" asp-for="Course.Author"/>
+            </div>
+        </div>
+    </div>
+    <input type="submit" class="btn btn-success" value="Отправить"/>
+</form>

@@ -1,0 +1,31 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Добро пожаловать!</h1>
+        @if (!Model.Courses.Any())
+        {
+            <p>Курсов пока нет...</p>
+        }
+        else
+        {
+            <p>Ниже представлены различные курсы.</p>
+        }
+</div>
+
+<div class="card-columns">
+    @foreach (var course in Model.Courses)
+    {
+        <div class="card" style="box-shadow: rgb(14 30 37 / 12%) 0px 2px 4px 0px, rgb(14 30 37 / 12%) 0px 1px 10px 0px;">
+            <div class="card-body">
+                <h5 class="card-title">@course.Name</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Автор: <i>@course.Author</i></h6>
+                <p class="card-text">@course.Description</p>
+                <a asp-page="Course" asp-route-courseId="@course.Id" class="card-link">Начать!</a>
+            </div>
+        </div>
+    }
+</div>

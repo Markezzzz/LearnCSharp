@@ -1,0 +1,40 @@
+﻿@page
+@model CoursesModel
+@{
+    ViewData["Title"] = "Список курсов";
+}
+
+<div class="text-center">
+    <h2 class="display-4">@ViewData["Title"]</h2>
+</div>
+
+<p>
+    <a asp-page="CreateCourse">Добавить курс</a>
+</p>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Название</th>
+        <th scope="col">Описание</th>
+        <th scope="col">Автор</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var course in Model.Courses)
+    {
+        <tr>
+            <th scope="row">@course.Name</th>
+            <td>@course.Description</td>
+            <td>@course.Author</td>
+            <td>
+                <form style="min-width: max-content;" method="post">
+                    <a class="btn btn-outline-primary" asp-page="EditCourse" asp-route-id="@course.Id">Изменить</a>
+                    <button type="submit" class="btn btn-outline-danger" asp-page-handler="delete" asp-route-id="@course.Id">
+                        Удалить
+                    </button>
+                </form>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

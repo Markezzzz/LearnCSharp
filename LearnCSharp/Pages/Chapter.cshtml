@@ -1,0 +1,180 @@
+﻿@page "{chapterId:int}"
+@model ChapterModel
+
+@{
+    Layout = "_LayoutChapter";
+    ViewData["Title"] = Model.Chapter.Name;
+}
+
+<div class="text-center">
+    <h1 class="display-4">@ViewData["Title"]</h1>
+</div>
+@if (Model.IsContentOnly)
+{
+    <div class="border rounded" style="flex: 1; margin-right: 15vw; margin-left: 15vw; height: 100%; box-shadow: rgb(14 30 37 / 12%) 0px 2px 4px 0px, rgb(14 30 37 / 12%) 0px 1px 10px 0px;">
+        <div class="chapter-content" id="content" style="width: 100%; height: 74.1279vh;overflow-y: scroll; outline: none; border: none; padding: 7px;">
+            @Html.Raw(Model.Chapter.Content)
+        </div>
+    </div>
+    <div style="flex: 1;display: flex;">
+        <div style="flex: 1;display: flex; justify-content: center; height: 38px; margin-right: 0.5vw">
+            <nav aria-label="..." style="align-content: center; margin: auto">
+                <ul class="pagination" style="box-shadow: rgb(14 30 37 / 12%) 0px 2px 4px 0px, rgb(14 30 37 / 12%) 0px 1px 10px 0px;">
+                    @if (Model.PreviousChapter is not null)
+                    {
+                        <li class="page-item">
+                            <a class="page-link active" style="text-overflow: ellipsis; overflow: hidden; max-width: 12vw; white-space: nowrap;" asp-page="Chapter" asp-route-chapterId="@Model.PreviousChapter.Id">Назад: <small>@Model.PreviousChapter.Name</small></a>
+                        </li>
+                    }
+                    <li class="page-item">
+                        <a class="page-link" asp-page="Course" asp-route-courseId="@Model.Chapter.CourseId">Список глав</a>
+                    </li>
+                    @if (Model.NextChapter is not null)
+                    {
+                        <li class="page-item">
+                            <a class="page-link active" style="text-overflow: ellipsis; overflow: hidden; max-width: 12vw; white-space: nowrap;" asp-page="Chapter" asp-route-chapterId="@Model.NextChapter.Id">Вперёд: <small>@Model.NextChapter.Name</small></a>
+                        </li>
+                    }
+                </ul>
+            </nav>
+        </div>
+    </div>
+}
+else
+{
+    <div style="display: flex; flex-direction: column;">
+        <div style="flex: 1;display: flex; height: 100%;">
+            <div class="border rounded" style="flex: 1; margin-right: 0.5vw; height: 100%; width: 50%; box-shadow: rgb(14 30 37 / 12%) 0px 2px 4px 0px, rgb(14 30 37 / 12%) 0px 1px 10px 0px;">
+                <nav>
+                    <div class="nav nav-pills nav-fill" id="nav-tab-lecture" role="tablist">
+                        <a class="nav-item nav-link active" id="nav-lecture-tab" data-toggle="tab" href="#nav-lecture" role="tab" aria-controls="nav-lecture" aria-selected="true" style="width: 50%">Лекция</a>
+                        <a class="nav-item nav-link" id="nav-teacher-code-tab" data-toggle="tab" href="#nav-teacher-code" role="tab" aria-controls="nav-teacher-code" aria-selected="false" style="width: 50%">Решение преподавателя</a>
+                    </div>
+                </nav>
+                <div class="tab-content" id="nav-tab-lectureContent">
+                    <div class="tab-pane fade show active" id="nav-lecture" role="tabpanel" aria-labelledby="nav-lecture-tab">
+                        <div class="chapter-content" id="content" style="width: 100%; height: 70vh;overflow-y: scroll; outline: none; border: none; padding: 7px;">
+                            @Html.Raw(Model.Chapter.Content)
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="nav-teacher-code" role="tabpanel" aria-labelledby="nav-teacher-code-tab">
+                        <textarea id="teacherCode" style="width: 100%;height: 100%;overflow-y: scroll;">@Model.Chapter.TeacherCode</textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="border rounded" style="flex: 1; margin-left: 0.5vw; height: 100%; width: 50%; box-shadow: rgb(14 30 37 / 12%) 0px 2px 4px 0px, rgb(14 30 37 / 12%) 0px 1px 10px 0px;">
+                <nav>
+                    <div class="nav nav-pills nav-fill" id="nav-tab-code" role="tablist">
+                        <a class="nav-item nav-link" id="nav-test-code-tab" data-toggle="tab" href="#nav-test-code" role="tab" aria-controls="nav-test-code" aria-selected="false" style="width: 33.33%; width: calc(100% / 3);">Код тестов</a>
+                        <a class="nav-item nav-link active" id="nav-user-code-tab" data-toggle="tab" href="#nav-user-code" role="tab" aria-controls="nav-user-code" aria-selected="true" style="width: 33.33%; width: calc(100% / 3);">Ваш код</a>
+                        <a class="nav-item nav-link" id="nav-result-tab" data-toggle="tab" href="#nav-result" role="tab" aria-controls="nav-result" aria-selected="false" style="width: 33.33%; width: calc(100% / 3);">Результат</a>
+                    </div>
+                </nav>
+                <div class="tab-content" id="nav-tab-codeContent">
+                    <div class="tab-pane fade" id="nav-test-code" role="tabpanel" aria-labelledby="nav-test-code-tab">
+                        <textarea id="testCode" style="width: 100%; height: 100%;overflow-y: scroll;">@Model.Chapter.TestsCode</textarea>
+                    </div>
+                    <div class="tab-pane fade show active" id="nav-user-code" role="tabpanel" aria-labelledby="nav-user-code-tab">
+                        <textarea id="userCode" style="width: 100%; height: 100%;overflow-y: scroll;"></textarea>
+                    </div>
+                    <div class="tab-pane fade" id="nav-result" role="tabpanel" aria-labelledby="nav-result-tab">
+                        <div class="chapter-content" id="result" style="width: 100%; height: 70vh;overflow-y: scroll; outline: none; border: none; padding: 7px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="flex: 1;display: flex;">
+            <div style="flex: 1;display: flex; justify-content: center; height: 38px; margin-right: 0.5vw">
+                <nav aria-label="..." style="align-content: center; margin: auto">
+                    <ul class="pagination" style="box-shadow: rgb(14 30 37 / 12%) 0px 2px 4px 0px, rgb(14 30 37 / 12%) 0px 1px 10px 0px;">
+                        @if (Model.PreviousChapter is not null)
+                        {
+                            <li class="page-item">
+                                <a class="page-link active" style="text-overflow: ellipsis; overflow: hidden; max-width: 12vw; white-space: nowrap;" asp-page="Chapter" asp-route-chapterId="@Model.PreviousChapter.Id">Назад: <small>@Model.PreviousChapter.Name</small></a>
+                            </li>
+                        }
+                        <li class="page-item">
+                            <a class="page-link" asp-page="Course" asp-route-courseId="@Model.Chapter.CourseId">Список глав</a>
+                        </li>
+                        @if (Model.NextChapter is not null)
+                        {
+                            <li class="page-item">
+                                <a class="page-link active" style="text-overflow: ellipsis; overflow: hidden; max-width: 12vw; white-space: nowrap;" asp-page="Chapter" asp-route-chapterId="@Model.NextChapter.Id">Вперёд: <small>@Model.NextChapter.Name</small></a>
+                            </li>
+                        }
+                    </ul>
+                </nav>
+            </div>
+            <div style="flex: 1;display: flex; justify-content: center; height: 38px; margin-left: 0.5vw">
+                <button class="btn btn-primary" asp-page-handler="GetResults" id="submit-solution" type="submit" style="height: 38px; margin: auto; box-shadow: rgb(14 30 37 / 12%) 0px 2px 4px 0px, rgb(14 30 37 / 12%) 0px 1px 10px 0px;">Проверить решение!</button>
+            </div>
+        </div>
+    </div>
+}
+@section Scripts
+{
+    <script type="text/javascript"> 
+        setTimeout(function () {
+                    var pres = document.getElementById("content").querySelectorAll("pre>code");
+                    for (var i = 0; i < pres.length; i++) {
+                        hljs.highlightBlock(pres[i]);
+                    }
+                });
+    </script>
+        
+    @if (!Model.IsContentOnly)
+    {
+        <script type="text/javascript"> 
+            var displayTeacher = CodeMirror.fromTextArea(document.getElementById("teacherCode"), {mode: "text/x-csharp", theme: "VSLight", lineWrapping: true, lineNumbers: true, rows: 5, readOnly: true, indentUnit: 4, viewportMargin: Infinity});
+            var editor = CodeMirror.fromTextArea(document.getElementById("userCode"), {mode: "text/x-csharp", theme: "VSLight", lineWrapping: true,  lineNumbers: true, rows: 5, indentUnit: 4, viewportMargin: Infinity});
+            var displayTest = CodeMirror.fromTextArea(document.getElementById("testCode"), {mode: "text/x-csharp", theme: "VSLight", lineWrapping: true, lineNumbers: true, rows: 5, readOnly: true, indentUnit: 4, viewportMargin: Infinity});
+            var result = "";
+            
+            
+            $(function () {
+                $('#nav-test-code-tab').on('shown.bs.tab', function (e) {
+                  displayTest.refresh()
+                });
+            })
+            
+            $(function () {
+                $('#nav-user-code-tab').on('shown.bs.tab', function (e) {
+                  editor.refresh()
+                });
+            })
+            
+            $(function () {
+                $('#nav-teacher-code-tab').on('shown.bs.tab', function (e) {
+                  displayTeacher.refresh()
+                });
+            })
+        
+    
+            
+            $(function () {
+                var id = @Model.Chapter.Id;
+                var url = "/Chapter/" + id + "?handler=GetResults";
+                        $("#submit-solution").click(function () {
+                            $.ajax({
+                                type: "POST",
+                                url: url,
+                                beforeSend: function (xhr) {
+                                    xhr.setRequestHeader("XSRF-TOKEN",
+                                        $('input:hidden[name="__RequestVerificationToken"]').val);
+                                },
+                                data: { "userCode": editor.getValue(), "id": id },
+                                success: function (response) {
+                                    $("#result").html(response.code);
+                                },
+                                failure: function (response) {
+                                    $("#result").text("fail");
+                                },
+                                error: function (response) {
+                                    $("#result").text("error");
+                                }
+                            });
+                        });
+                    });
+        </script>
+    }
+}

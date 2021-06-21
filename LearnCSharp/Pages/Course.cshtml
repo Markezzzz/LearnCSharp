@@ -1,0 +1,30 @@
+﻿@page "{courseId:int}"
+@model CourseModel
+@{
+    ViewData["Title"] = Model.Course.Name;
+}
+
+<div class="text-center">
+    <h1 class="display-4">@ViewData["Title"]</h1>
+    <p>@Model.Course.Description</p>
+</div>
+
+<div>
+    @foreach (var module in Model.Modules)
+    {
+        <h3>@module.Name</h3>
+        <div style="display: flex; flex-direction: row; margin-top: 2vh; margin-bottom: 2vh;">
+            <div class="card" style="flex: 1; margin-right: 10px; width: 50%; box-shadow: rgb(14 30 37 / 12%) 0px 2px 4px 0px, rgb(14 30 37 / 12%) 0px 1px 10px 0px;">
+                <ul class="list-group list-group-flush">
+                    @foreach (var chapter in Model.GetChapters(module.Id))
+                    {
+                        <li class="list-group-item"><a asp-page="Chapter" asp-route-chapterId="@chapter.Id">@chapter.Name</a></li>
+                    }
+                </ul>
+            </div>
+            <div style="flex: 1; margin-left: 10px; width: 50%;">
+                <h7>@module.Description</h7>
+            </div>
+        </div>
+    }
+</div>

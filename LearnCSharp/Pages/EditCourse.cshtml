@@ -1,0 +1,84 @@
+﻿@page "{id:int}"
+@using LearnCSharp.Models.Course
+@model EditCourseModel
+@{
+    ViewData["Title"] = "Редактирование курса";
+}
+<div class="text-center">
+    <h2 class="display-4">@ViewData["Title"]</h2>
+</div>
+
+<div asp-validation-summary="All"></div>
+<form method="post">
+    <input asp-for="Course.Id" type="hidden"/>
+    <div style="display: flex; flex-direction: column;">
+        <div style="flex: 1; margin-bottom: 5vh;">
+            <div class="border rounded" style="box-shadow: rgb(14 30 37 / 12%) 0px 2px 4px 0px, rgb(14 30 37 / 12%) 0px 1px 10px 0px;">
+                <div>
+                    <p style="margin-bottom: 0.1rem; margin-left: 0.4%;">Название</p>
+                    <div style="border-bottom: 1px solid #dee2e6; border-top: 1px solid #dee2e6;">
+                        <input placeholder="Мой курс" style="width: 99.4%; border: none; outline-color: #0399e8; margin-left: 0.4%; padding: 0;" maxlength="40" asp-for="Course.Name"/>
+                        <span asp-validation-for="Course.Name"></span>
+                    </div>
+                </div>
+                <div>
+                    <p style="margin-bottom: 0.1rem; margin-left: 0.4%;">Описание</p>
+                    <div style="border-bottom: 1px solid #dee2e6; border-top: 1px solid #dee2e6;">
+                        <textarea placeholder="Самый лучший курс" style="width: 99.4%; border: none; outline-color: #0399e8; margin-left: 0.4%; padding: 0; resize: none" rows="3" maxlength="80" asp-for="Course.Description"></textarea>
+                        <span asp-validation-for="Course.Description"></span>
+                    </div>
+                </div>
+                <div>
+                    <p style="margin-bottom: 0.1rem; margin-left: 0.4%;">Автор</p>
+                    <div style="border-bottom: 1px solid #dee2e6; border-top: 1px solid #dee2e6;">
+                        <input placeholder="Василий Пупкин" style="width: 99.4%; border: none; outline-color: #0399e8; margin-left: 0.4%; padding: 0;" maxlength="32" asp-for="Course.Author"/>
+                        <span asp-validation-for="Course.Author"></span>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <p style="margin-bottom: 0.2rem">Модули</p>
+                <div>
+                    @if (!Model.Modules.Any())
+                    {
+                        <label>Модулей пока нет. <a asp-page="CreateModule" asp-route-id="@Model.Course.Id">Создайте новый.</a> </label>
+                    }
+                    else
+                    {
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Название</th>
+                                <th scope="col">Описание</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach (var module in Model.Modules)
+                            {
+                                <tr>
+                                    <th scope="row">@module.index</th>
+                                    <td>@module.Name</td>
+                                    <td>@module.Description</td>
+                                    <td>
+                                        <form style="min-width: max-content;" method="post">
+                                            <a class="btn btn-outline-primary" asp-page="EditModule" asp-route-id="@module.Id">Изменить</a>
+                                            <button type="submit" class="btn btn-outline-danger" asp-page-handler="delete" asp-route-moduleId="@module.Id">
+                                                Удалить
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                            </tbody>
+                        </table>
+                        <a asp-page="CreateModule" asp-route-id="@Model.Course.Id">Создать новый модуль</a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <input type="submit" class="btn btn-success" value="Сохранить"/>
+    </div>
+</form>

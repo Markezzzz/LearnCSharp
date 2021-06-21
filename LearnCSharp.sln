@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LearnCSharp", "LearnCSharp\LearnCSharp.csproj", "{F1E50673-6F27-4ED9-82BD-B4E7AFE1CE32}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F1E50673-6F27-4ED9-82BD-B4E7AFE1CE32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1E50673-6F27-4ED9-82BD-B4E7AFE1CE32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1E50673-6F27-4ED9-82BD-B4E7AFE1CE32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1E50673-6F27-4ED9-82BD-B4E7AFE1CE32}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
