@@ -12,7 +12,7 @@ namespace LearnCSharp.Services
 {
     public class Sandbox
     {
-        //Этот метод может уронить сервер...
+        //TODO: Research ways to break the server with it
         public static string CompileAndRun(string assemblyName, string code)
         {
             using var ms = new MemoryStream();
@@ -31,7 +31,7 @@ namespace LearnCSharp.Services
             return output;
         }
         
-        //TODO: Find a way to not include EVERY reference
+        //TODO: Find a way to not include EVERY reference, but only allowed/needed
         private static IEnumerable<MetadataReference> GetReferences()
         {
             var references = new List<MetadataReference>() { };
@@ -57,6 +57,7 @@ namespace LearnCSharp.Services
             return result;
         }
 
+        //TODO: Maybe call it just "Run"?
         private static string RunAndGetOutput(string assemblyName, Stream stream)
         {
             stream.Seek(0, SeekOrigin.Begin);
@@ -64,7 +65,6 @@ namespace LearnCSharp.Services
             var type = assembly.GetType(assemblyName);
             var instance = assembly.CreateInstance(assemblyName);
             var method = type?.GetMember("RunAllTests").First() as MethodInfo;
-            method?.Invoke(instance, null);
             var output = method?.Invoke(instance, null) + "\r\n";
             return output;
         }
@@ -76,7 +76,7 @@ namespace LearnCSharp.Services
                 diagnostic.IsWarningAsError ||
                 diagnostic.Severity == DiagnosticSeverity.Error);
 
-            failures.Cast<Diagnostic>().ToList()
+            failures.ToList()
                 .ForEach(diagnostic => output += $"\t{diagnostic.Id}: {diagnostic.GetMessage()}" + "\r\n");
             return output;
         }

@@ -1,0 +1,31 @@
+/*
+	TODO: Impossible to make it 1:1?
+	 
+    Name:       VSLight
+    Author:     Marenin Mark
+
+*/
+
+.cm-s-VSLight.CodeMirror { background: #FFFFFF; color: #000000; }
+.cm-s-VSLight div.CodeMirror-selected { background: #9DA7C3; }
+
+.cm-s-VSLight .CodeMirror-cursor { border-left: 1px solid #5c5855; }
+
+.cm-s-VSLight span.cm-comment { color: #008000; }
+.cm-s-VSLight span.cm-atom { color: #000000; }
+.cm-s-VSLight span.cm-number { color: #A31515; }
+
+.cm-s-VSLight span.cm-property, .cm-s-VSLight span.cm-attribute { color: #000000; }
+.cm-s-VSLight span.cm-keyword { color: #0000FF; }
+.cm-s-VSLight span.cm-string { color: #A31515; }
+
+.cm-s-VSLight span.cm-type { color: #0000ff }
+.cm-s-VSLight span.cm-variable { color: #000000; }
+.cm-s-VSLight span.cm-def { color: #a31515; }
+.cm-s-VSLight span.cm-bracket { color: #3a3432; }
+.cm-s-VSLight span.cm-tag { color: #170; }
+.cm-s-VSLight span.cm-link { color: #00c; }
+.cm-s-VSLight span.cm-error { color: #f00; }
+
+.cm-s-VSLight .CodeMirror-activeline-background { background: #00000012; }
+.cm-s-VSLight .CodeMirror-matchingbracket { text-decoration: underline; color: #a16a94 !important; }

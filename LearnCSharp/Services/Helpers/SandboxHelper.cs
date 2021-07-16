@@ -11,7 +11,7 @@ namespace LearnCSharp.Services.Helpers
             _sandbox = new Sandbox();
         }
         
-        public string GetResults(string solutionCode, Chapter chapter)
+        public static string GetResults(string solutionCode, Chapter chapter)
         {
             var code = chapter.TestsCode + "\n" + chapter.SecretTestsCode + "\n" + solutionCode;
             return Sandbox.CompileAndRun(chapter.AssemblyName, code);
